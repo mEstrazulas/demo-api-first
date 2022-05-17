@@ -1,0 +1,184 @@
+openapi: 3.0.1
+info:
+  title: API
+  description: 'API Spec'
+  contact:
+    email: m.vianna@kigroup.de
+  version: "1.0"
+servers:
+  - url: https://api.kigroup.de/
+tags:
+  - name: user
+paths:
+  /v1/user:
+    post:
+      tags:
+        - user
+      summary: Insert a new user
+      operationId: postUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        201:
+          description: Created
+        400:
+          description: An error happen on validation
+        409:
+          description: E- mail already exists
+      x-codegen-request-body-name: body
+    get:
+      tags:
+        - user
+      summary: Get all users
+      operationId: getUsers
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWithId'
+        400:
+          description: Invalid ID supplied
+          content: { }
+        404:
+          description: Not found
+          content: { }
+  /v1/user/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    patch:
+      tags:
+        - user
+      summary: Update user information
+      operationId: patchUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        204:
+          description: successful operation
+        400:
+          description: Invalid ID supplied
+        404:
+          description: Not found
+      x-codegen-request-body-name: body
+    get:
+      tags:
+        - user
+      summary: Get all users
+      operationId: getById
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWithId'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Not found
+          content: {}
+    delete:
+      tags:
+        - user
+      summary: Delete user by id
+      operationId: deleteById
+      parameters:
+        - name: id
+          in: path
+          description: Order ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        204:
+          description: successful operation
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Not found
+          content: {}
+  /v1/user/{id}/avatar:
+    patch:
+      tags:
+        - user
+      operationId: uploadAvatar
+      summary: Upload user avatar
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                receipt:
+                  type: string
+                  format: binary
+        required: true
+      responses:
+        201:
+          description: Avatar uploaded
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Not found
+          content: {}
+        405:
+          description: Validation exception
+          content: {}
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - login
+        - password
+        - type
+      properties:
+        login:
+          type: string
+          description: login
+        password:
+          type: string
+          format: password
+        type:
+          type: string
+          enum:
+            - TYPE_ADMIN
+            - TYPE_USER
+    UserWithId:
+      allOf:
+        - $ref: '#/components/schemas/User'
+        - type: object
+          required:
+            - user_id
+          properties:
+            user_id:
+              type: string
+              format: UUID
+            avatar:
+              type: string

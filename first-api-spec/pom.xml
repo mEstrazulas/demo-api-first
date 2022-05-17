@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>demo-api-first</artifactId>
+        <groupId>io.xgeeks.demo.api</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>first-api-spec</artifactId>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <codegen.api.package.name>io.xgeeks.cmy.poc.api.v1</codegen.api.package.name>
+        <codegen.model.page.name>io.xgeeks.cmy.poc.api.v1.model</codegen.model.page.name>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>5.3.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-api-code</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi.yaml</inputSpec>
+                            <output>${project.build.directory}/generated-sources/api</output>
+                            <generateSupportingFiles>true</generateSupportingFiles>
+                            <generatorName>spring</generatorName>
+                            <strictSpec>true</strictSpec>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <configOptions>
+                                <controllerThrowsExceptions>java.io.IOException,com.example.NotFoundException</controllerThrowsExceptions>
+                                <library>spring-mvc</library>
+                                <interfaceOnly>true</interfaceOnly>
+                                <skipDefaultInterface>true</skipDefaultInterface>
+                                <useBeanValidation>true</useBeanValidation>
+                                <useClassLevelBeanValidation>false</useClassLevelBeanValidation>
+                                <useTags>true</useTags>
+                                <java8>true</java8>
+                                <useOptional>false</useOptional>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <dateLibrary>java8</dateLibrary>
+                                <bigDecimalAsString>true</bigDecimalAsString>
+                                <useBeanValidation>true</useBeanValidation>
+                                <apiPackage>${codegen.api.package.name}</apiPackage>
+                                <modelPackage>${codegen.model.page.name}</modelPackage>
+                            </configOptions>
+                            <typeMappings>
+                                <typeMapping>OffsetDateTime=LocalDateTime</typeMapping>
+                            </typeMappings>
+                            <importMappings>
+                                <importMapping>java.time.OffsetDateTime=java.time.LocalDateTime</importMapping>
+                            </importMappings>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
