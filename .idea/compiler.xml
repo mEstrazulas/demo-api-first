@@ -7,7 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="first-api-spec" />
+        <module name="first-api-impl" />
       </profile>
     </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="first-api-impl" options="-parameters" />
+      <module name="first-api-spec" options="-parameters" />
+    </option>
   </component>
 </project>

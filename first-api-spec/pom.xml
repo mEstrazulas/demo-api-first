@@ -12,12 +12,38 @@
     <artifactId>first-api-spec</artifactId>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <codegen.api.package.name>io.xgeeks.cmy.poc.api.v1</codegen.api.package.name>
-        <codegen.model.page.name>io.xgeeks.cmy.poc.api.v1.model</codegen.model.page.name>
+        <codegen.api.package.name>io.xgeeks.demo.api.v1.rest</codegen.api.package.name>
+        <codegen.model.page.name>io.xgeeks.demo.api.v1.model</codegen.model.page.name>
     </properties>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-core</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
