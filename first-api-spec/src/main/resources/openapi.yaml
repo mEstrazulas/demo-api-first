@@ -42,12 +42,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserWithId'
-        400:
-          description: Invalid ID supplied
-          content: { }
-        404:
-          description: Not found
-          content: { }
   /v1/user/{id}:
     parameters:
       - name: id
@@ -78,7 +72,7 @@ paths:
     get:
       tags:
         - user
-      summary: Get all users
+      summary: Get user by id
       operationId: getById
       responses:
         200:
