@@ -4,10 +4,12 @@ import io.xgeeks.demo.api.v1.model.User;
 import io.xgeeks.demo.api.v1.model.UserWithId;
 import io.xgeeks.demo.api.v1.rest.UserApi;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
+@RestController
 public class UserRest implements UserApi {
     @Override
     public ResponseEntity<Void> deleteById(UUID id) {
